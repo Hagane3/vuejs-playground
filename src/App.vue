@@ -1,6 +1,9 @@
 <script>
-console.log("render");
+import Todo from "./components/Todo.vue";
 export default {
+  components: {
+    Todo,
+  },
   data() {
     return {
       message: "Hello World!",
@@ -49,6 +52,7 @@ export default {
     </div>
   </div>
   <h1 v-else>TURN ON APP</h1>
+  <Todo />
 </template>
 
 <style scoped>
