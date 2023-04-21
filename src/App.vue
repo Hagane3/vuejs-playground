@@ -1,47 +1,74 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script>
+console.log("render");
+export default {
+  data() {
+    return {
+      message: "Hello World!",
+      count: 0,
+      text: "",
+      showApp: true,
+    };
+  },
+  methods: {
+    increment() {
+      this.count++;
+    },
+    decrement() {
+      if (this.count > 0) {
+        this.count--;
+      } else {
+        return;
+      }
+    },
+    onInput(e) {
+      this.text = e.target.value;
+    },
+    toggleApp() {
+      this.showApp = !this.showApp;
+    },
+  },
+};
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <button @click="toggleApp">TOGGLE APP</button>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div v-if="showApp" class="container">
+    <h1 class="heading">Hello world by Hagane!</h1>
+    <h2>{{ message }}</h2>
+    <div class="counter">
+      <span>{{ count }}</span>
+      <div>
+        <button @click="increment">INCREASE</button>
+        <button @click="decrement">DECREASE</button>
+      </div>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    <div class="input_display">
+      <span>{{ text }}</span>
+      <input :value="text" @input="onInput" placeholder="type here" />
+    </div>
+  </div>
+  <h1 v-else>TURN ON APP</h1>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+.heading {
+  color: red;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.counter {
+  text-align: center;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.input_display {
+  display: flex;
+  flex-direction: column;
 }
 </style>
